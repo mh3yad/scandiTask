@@ -10,6 +10,8 @@
     </header>
        <br>
        <hr>
+
+       <button @click=" setTypeValues(1)">clicl</button>
   <form action="" id="product_form" @submit.prevent="addProduct()">
     
         <p class="errors" v-for="error in errors" :key="error">{{error}}</p>
@@ -37,7 +39,7 @@
        <label  v-for="attribute in attributes" :key="attribute.id">
             <label for="{{attribute.name}}" >
               <span>{{attribute.name}} ({{attribute.measurement_unit}}) </span> </label>
-              <input   class="input-field" name="field1" type="text"   v-model="attribute.value">
+              <input :id="attribute.name"  class="input-field" name="field1" type="text"   v-model="attribute.value">
         </label>
         <p>{{type.description}}</p>
 
@@ -57,9 +59,7 @@ export default {
     return {
       errors:{},
       types:{},
-      attributes:[{
-      
-      }],
+      attributes:{},
       type:{
         id:'',
         name:'',
@@ -82,10 +82,13 @@ export default {
       data.append("price", this.Product.price);
       data.append("product_type", this.type.name);
       data.append("attributes",JSON.stringify(this.attributes));
-      this.attributes.forEach(attr => data.append(attr.name,attr.value));
+      for (const key in this.attributes) {
+         data.append(this.attributes[key].name,this.attributes[key].value);
+      }
+      
       axios
         .post(
-          "http://localhost/pleacework/src/assets/api/api.php?action=addProduct",
+          "https://scandiwebtaskayad.000webhostapp.com/api.php?action=addProduct",
           data
         )
         .then(res => {
@@ -102,12 +105,13 @@ export default {
     },
     setTypeValues(type_id){
      
-      for(const type of this.types){
-          if(type.id == type_id){
-              this.type.id = type.id;
-              this.type.name = type.name;
-              this.type.description = type.description;
-          }
+        for (const key in this.types) {
+        if(this.types[key].id == type_id){
+            this.type.id = this.types[key].id
+            this.type.name = this.types[key].name
+            this.type.description = this.types[key].description
+        }
+
       }
     },
     getAttributes(type){
@@ -116,7 +120,7 @@ export default {
        let id = type.target.value;
        axios
         .get(
-          "http://localhost/scandi/src/api/api.php?action=getAttributes&id="+id,
+          "https://scandiwebtaskayad.000webhostapp.com/api.php?action=getAttributes&id="+id,
         )
         .then(res => {
           if (res.data.error) {
@@ -139,13 +143,17 @@ export default {
   mounted(){
      axios
         .get(
-          "http://localhost/scandi/src/api/api.php?action=getTypes",
+          // "https://scandiwebtaskayad.000webhostapp.com/api.php?action=getTypes",
+          "https://scandiwebtaskayad.000webhostapp.com/api.php?action=getTypes",
         )
         .then(res => {
           if (res.data.error) {
             console.log("Error", res);
           } else {
             this.types = res.data
+            console.log(this.types)
+            console.log(typeof this.types)
+            
           }
         })
         .catch(err => {

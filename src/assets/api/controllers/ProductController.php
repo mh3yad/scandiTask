@@ -7,7 +7,7 @@ abstract class  ProductController{
     protected string $displayProductFormat;
     public function __construct($data){
 
-        $this->data = $this->sanitizeData($data);
+        // $this->data = $this->sanitizeData($data);
     }
 
     public function sanitizeData(array $data) :array{
@@ -37,8 +37,8 @@ abstract class  ProductController{
     public  abstract function   productValidate($data);
     public function displayProductFormat($obj): string
     {
-        $obj =$obj[0];
-
+        $obj = (array) $obj;
+        $obj = $obj[0];
         return $obj->name . ' : ' .$obj->value . ' ' .  $obj->measurement_unit;
     }
     public static  function getAttributes($type_id){

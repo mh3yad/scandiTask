@@ -45,10 +45,10 @@ class Furniture extends ProductController {
         }
     }
     public function displayProductFormat($obj) : string {
+        $obj = (array) $obj;
         $height = $obj[0]->value;
         $width = $obj[1]->value;
         $length = $obj[2]->value;
-
         return "Dimensions " . ' : ' .$height . 'x'   . $width . 'x' . $length;
     }
 }

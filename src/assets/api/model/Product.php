@@ -6,7 +6,7 @@ class Product
     private string $name;
     private int $price;
     private string $displayProductFormat;
-    private array $attributes;
+    private  $attributes;
     private int $lastProductId;
 
     public function __construct($data)
@@ -16,7 +16,7 @@ class Product
         $this->name = $data['name'];
         $this->price = $data['price'];
         $this->displayProductFormat = $data['displayProductFormat'] ;
-        $this->attributes = $data['attributes'];
+        $this->attributes =  $data['attributes'];
     }
 
 

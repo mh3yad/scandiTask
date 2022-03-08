@@ -39,6 +39,7 @@ spl_autoload_register(function ($class_name) {
 });
 
 $action='';
+$res = [];
 if (isset($_GET['action'])) {
 	
 	$action=$_GET['action'];
@@ -62,22 +63,20 @@ if($action=='addProduct'){
 else if($action=='getTypes'){
 
 	$result = Product::getTypes();
-	if($result->num_rows > 0){
-		while($row =mysqli_fetch_assoc($result))
-		{
-			$res[] = $row;
-		}
+    if(empty($result)){
+        $res = [];
+    }else {
+        foreach ($result as $row) {
 
+            $res[] = $row;
+        }
+    }
 
-	}else{
-		$res['error']=true;
-        $res['message']=$result;
-	}
 
 }else if($action == 'getAll'){
     $result = Product::all();
     if(empty($result)){
-        $res = 'empty';
+        $res = [];
     }else {
         foreach ($result as $row) {
 
@@ -89,18 +88,15 @@ else if($action=='getTypes'){
 
 else if($action == 'getAttributes'){
     $result = Product::getAttributes($_GET['id']);
-	if($result->num_rows > 0){
-		while($row =mysqli_fetch_assoc($result))
-		{
-			$res[] = $row;
-		}
+	if(empty($result)){
+        $res = 'empty';
+    }else {
+        foreach ($result as $row) {
 
-
-	}else{
-		$res['error']=true;
-        $res['message']=$result;
-	}
-}else if($action = 'delete'){
+            $res[] = $row;
+        }
+    }
+}else if($action == 'delete'){
     $arr = explode(",",$_POST['toDeleteArray']);
     print_r($arr);
     foreach ($arr as $id) {
