@@ -1,19 +1,18 @@
-# pleacework
+# Scandiweb Task
 
-## Project setup
+## FrontEnd
 ```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
+using VueJs and uploaded to firebase
 ```
 
-### Compiles and minifies for production
+### BackEnd
 ```
-npm run build
+using PHP native MVC pattern uploaded to 00webhost
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### creds
+```
+no password required
+```
+
+
