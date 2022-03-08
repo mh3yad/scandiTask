@@ -100,7 +100,6 @@ else if($action == 'getAttributes'){
     $arr = explode(",",$_POST['toDeleteArray']);
     print_r($arr);
     foreach ($arr as $id) {
-        echo $id . " $$  ";
         $res  =  Product::delete($id);
         $res= 'success';
     }

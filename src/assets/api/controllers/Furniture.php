@@ -34,7 +34,6 @@ class Furniture extends ProductController {
 
         ]);
         if (count(AddProductRequest::getErrors()) == 0) {
-            echo "<br> add ";
             $data['displayProductFormat'] = $this->displayProductFormat($data['attributes']);
             $product = new Product($data);
             $product->add();
