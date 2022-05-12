@@ -1,0 +1,63 @@
+//git commit --amend
+<?php
+interface IVechicle{
+    public function getManufacturer() : string;
+    public function  setManufacturer($manufacturer):void;
+    public function getModel():string;
+    public function setModel($model):void;
+    public function drive():void;
+    public function stop():void;
+}
+abstract class AbstractVehicle implements IVechicle {
+    public string $manufacturer;
+    public string $model;
+
+    public function __construct($manufacturerm,$model){
+        $this->manufacturer = $manufacturerm;
+        $this->model = $model;
+    }
+    public function getManufacturer(): string
+    {
+        // TODO: Implement getManufacturer() method.
+    }
+    public function setManufacturer($manufacturer): void
+    {
+        $this->manufacturer = $manufacturer;
+    }
+    public function getModel(): string
+    {
+        // TODO: Implement getModel() method.
+    }
+    public function setModel($model): void
+    {
+        $this->model = $model;
+    }
+    public function drive(): void
+    {
+        echo $this->manufacturer . ' ' . $this->model . ' is driving';
+    }
+    public function stop(): void
+    {
+        echo $this->manufacturer . ' ' . $this->model . ' is stopping';
+    }
+}
+
+
+
+interface IDataModel{
+    public function getData():array;
+}
+
+class Car extends AbstractVehicle implements IDataModel {
+    public string $carName;
+    public function __construct($manufacturerm, $model,$carName)
+    {
+        parent::__construct($manufacturerm, $model);
+        $this->carName = $carName;
+    }
+    public function getData(): array
+    {
+        $arr = ['manufacturer' => $this->manufacturer,'model'=>$this->model,'carName'=>$this->carName];
+        return $arr;
+    }
+}
